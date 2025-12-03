@@ -1,0 +1,9 @@
+{
+  "name": "mud2-browser-client",
+  "version": "1.0.0",
+  "description": "Browser-based telnet client for MUD2",
+  "scripts": {
+    "dev": "npx serve -l 3000"
+  }
+}
+

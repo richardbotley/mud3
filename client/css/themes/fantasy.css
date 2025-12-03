@@ -1,0 +1,351 @@
+/**
+ * MUD3 Client - Fantasy Theme
+ * Rich, medieval fantasy aesthetic
+ */
+
+[data-theme="fantasy"] {
+  /* Color Palette */
+  --bg-primary: #1a1410;
+  --bg-secondary: #231c16;
+  --bg-tertiary: #2d241c;
+  --bg-accent: #3d3024;
+  
+  --text-primary: #e8dcc8;
+  --text-secondary: #c4b59d;
+  --text-muted: #8b7d6b;
+  
+  --gold: #d4a857;
+  --gold-light: #f0c96c;
+  --gold-dark: #a67c3d;
+  
+  --crimson: #9b2335;
+  --crimson-light: #c42f44;
+  
+  --emerald: #2d6a4f;
+  --emerald-light: #40916c;
+  
+  --royal-blue: #2c4a7c;
+  --royal-light: #3d6aa8;
+  
+  --border-color: rgba(212, 168, 87, 0.2);
+  --border-accent: rgba(212, 168, 87, 0.4);
+  
+  /* Shadows */
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 20px rgba(212, 168, 87, 0.15);
+  --shadow-inset: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ==================== Body & Background ==================== */
+
+[data-theme="fantasy"] body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+[data-theme="fantasy"] .bg-pattern {
+  background-image: 
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='%23d4a857' stroke-opacity='0.03' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 60px 60px;
+}
+
+[data-theme="fantasy"] .bg-vignette {
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.5) 100%);
+}
+
+/* ==================== Header ==================== */
+
+[data-theme="fantasy"] .app-header {
+  background: linear-gradient(180deg, var(--bg-secondary) 0%, transparent 100%);
+  border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="fantasy"] .logo {
+  font-family: 'Cinzel', serif;
+  color: var(--gold);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+[data-theme="fantasy"] .logo-accent {
+  color: var(--crimson-light);
+}
+
+[data-theme="fantasy"] .tagline {
+  color: var(--text-muted);
+  font-family: 'Crimson Pro', serif;
+}
+
+[data-theme="fantasy"] .icon-btn {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+[data-theme="fantasy"] .icon-btn:hover {
+  background: var(--bg-accent);
+  border-color: var(--border-accent);
+  color: var(--gold);
+}
+
+[data-theme="fantasy"] .btn-connect {
+  background: linear-gradient(180deg, var(--emerald-light) 0%, var(--emerald) 100%);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+[data-theme="fantasy"] .btn-connect:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+[data-theme="fantasy"] .btn-disconnect {
+  background: linear-gradient(180deg, var(--crimson-light) 0%, var(--crimson) 100%);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: var(--shadow-soft);
+}
+
+[data-theme="fantasy"] .btn-disconnect:hover {
+  filter: brightness(1.1);
+}
+
+/* ==================== Status Bar ==================== */
+
+[data-theme="fantasy"] .status-bar {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-inset);
+}
+
+[data-theme="fantasy"] .stat-label {
+  color: var(--gold-dark);
+  font-family: 'Cinzel', serif;
+}
+
+[data-theme="fantasy"] .stat-value {
+  color: var(--text-primary);
+}
+
+[data-theme="fantasy"] .stat-score .stat-value {
+  color: var(--gold-light);
+}
+
+/* Weather icons */
+[data-theme="fantasy"] .weather-sunny { color: #fbbf24; }
+[data-theme="fantasy"] .weather-cloudy { color: #9ca3af; }
+[data-theme="fantasy"] .weather-raining { color: #60a5fa; }
+[data-theme="fantasy"] .weather-snowing { color: #e0f2fe; }
+[data-theme="fantasy"] .weather-foggy { color: #6b7280; }
+[data-theme="fantasy"] .weather-stormy { color: #a78bfa; }
+
+/* ==================== Button Panel ==================== */
+
+[data-theme="fantasy"] .button-panel {
+  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+}
+
+[data-theme="fantasy"] .section-title {
+  color: var(--gold-dark);
+  font-family: 'Cinzel', serif;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Command Buttons */
+[data-theme="fantasy"] .cmd-btn {
+  background: linear-gradient(180deg, var(--bg-accent) 0%, var(--bg-tertiary) 100%);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+[data-theme="fantasy"] .cmd-btn:hover {
+  background: linear-gradient(180deg, var(--bg-accent) 0%, var(--bg-secondary) 100%);
+  border-color: var(--border-accent);
+  color: var(--gold);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3), var(--shadow-glow);
+}
+
+[data-theme="fantasy"] .cmd-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Compass main directions */
+[data-theme="fantasy"] .compass-main {
+  background: linear-gradient(180deg, var(--royal-light) 0%, var(--royal-blue) 100%);
+  border-color: rgba(60, 106, 168, 0.5);
+  color: white;
+}
+
+[data-theme="fantasy"] .compass-main:hover {
+  filter: brightness(1.15);
+  color: white;
+}
+
+/* Compass center (look) */
+[data-theme="fantasy"] .compass-center {
+  background: linear-gradient(180deg, var(--gold) 0%, var(--gold-dark) 100%);
+  border-color: var(--gold);
+  color: var(--bg-primary);
+}
+
+[data-theme="fantasy"] .compass-center:hover {
+  filter: brightness(1.1);
+  color: var(--bg-primary);
+}
+
+/* Swamp button */
+[data-theme="fantasy"] .swamp-btn {
+  background: linear-gradient(180deg, #4a7c59 0%, #2d5a3d 100%);
+  border-color: rgba(74, 124, 89, 0.5);
+  color: #c8e6c9;
+}
+
+[data-theme="fantasy"] .swamp-btn:hover {
+  filter: brightness(1.15);
+  color: white;
+}
+
+/* Combat buttons */
+[data-theme="fantasy"] .combat-btn {
+  background: linear-gradient(180deg, var(--crimson-light) 0%, var(--crimson) 100%);
+  border-color: rgba(155, 35, 53, 0.5);
+  color: white;
+}
+
+[data-theme="fantasy"] .combat-btn:hover {
+  filter: brightness(1.15);
+  color: white;
+}
+
+[data-theme="fantasy"] .combat-flee {
+  background: linear-gradient(180deg, #d97706 0%, #b45309 100%);
+  border-color: rgba(217, 119, 6, 0.5);
+}
+
+/* Action quit */
+[data-theme="fantasy"] .action-quit {
+  background: linear-gradient(180deg, #6b7280 0%, #4b5563 100%);
+  border-color: rgba(107, 114, 128, 0.5);
+  color: #e5e7eb;
+}
+
+/* ==================== Terminal ==================== */
+
+[data-theme="fantasy"] .terminal-frame {
+  background: 
+    linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
+    linear-gradient(180deg, var(--gold-dark) 0%, var(--border-color) 50%, var(--gold-dark) 100%) border-box;
+  border: 2px solid transparent;
+  box-shadow: 
+    var(--shadow-soft),
+    var(--shadow-inset),
+    0 0 40px rgba(0,0,0,0.3) inset;
+}
+
+[data-theme="fantasy"] .terminal {
+  background: transparent;
+}
+
+[data-theme="fantasy"] .system-message {
+  color: var(--gold-dark);
+}
+
+/* ==================== Input Area ==================== */
+
+[data-theme="fantasy"] .input-wrapper {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-inset);
+}
+
+[data-theme="fantasy"] .input-wrapper:focus-within {
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-inset), var(--shadow-glow);
+}
+
+[data-theme="fantasy"] .input-prompt {
+  color: var(--gold);
+}
+
+[data-theme="fantasy"] .command-input {
+  color: var(--text-primary);
+}
+
+[data-theme="fantasy"] .command-input::placeholder {
+  color: var(--text-muted);
+}
+
+[data-theme="fantasy"] .send-btn {
+  background: linear-gradient(180deg, var(--gold) 0%, var(--gold-dark) 100%);
+  color: var(--bg-primary);
+  font-family: 'Cinzel', serif;
+  border: 1px solid var(--gold);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+[data-theme="fantasy"] .send-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+[data-theme="fantasy"] .hint {
+  color: var(--text-muted);
+}
+
+/* ==================== Footer ==================== */
+
+[data-theme="fantasy"] .app-footer {
+  color: var(--text-muted);
+  background: linear-gradient(0deg, var(--bg-secondary) 0%, transparent 100%);
+  border-top: 1px solid var(--border-color);
+}
+
+[data-theme="fantasy"] .app-footer a {
+  color: var(--gold-dark);
+}
+
+[data-theme="fantasy"] .app-footer a:hover {
+  color: var(--gold);
+}
+
+/* ==================== Scrollbar ==================== */
+
+[data-theme="fantasy"] ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+[data-theme="fantasy"] ::-webkit-scrollbar-track {
+  background: var(--bg-tertiary);
+  border-radius: 5px;
+}
+
+[data-theme="fantasy"] ::-webkit-scrollbar-thumb {
+  background: var(--gold-dark);
+  border-radius: 5px;
+  border: 2px solid var(--bg-tertiary);
+}
+
+[data-theme="fantasy"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+/* ==================== Selection ==================== */
+
+[data-theme="fantasy"] ::selection {
+  background: rgba(212, 168, 87, 0.3);
+  color: var(--text-primary);
+}
+

@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build artifacts
+dist/
+build/
+
+# Reference files (not needed in deployment)
+clio-1.8*/
+*.tar.gz
+*.crdownload
+
+# Screenshots (reference only)
+Screenshot*.jpg
+m2client.jpg
+wpclient.jpg
+

@@ -1,0 +1,13 @@
+{
+  "name": "mud3-client",
+  "version": "1.0.0",
+  "description": "Browser-based telnet client for MUD2 (mudii.co.uk)",
+  "scripts": {
+    "server": "node server/server.js",
+    "dev": "node server/server.js"
+  },
+  "keywords": ["mud", "mud2", "telnet", "websocket", "game"],
+  "author": "",
+  "license": "MIT"
+}
+

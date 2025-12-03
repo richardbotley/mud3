@@ -1,0 +1,13 @@
+{
+  "name": "mud3-proxy",
+  "version": "1.0.0",
+  "description": "WebSocket to Telnet proxy for MUD2",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.14.2",
+    "dotenv": "^16.3.1"
+  }
+}

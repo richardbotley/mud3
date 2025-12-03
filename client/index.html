@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MUD3 - Browser Client for MUDII</title>
+  <meta name="description" content="Browser-based telnet client for MUD2 - The world's first MUD!">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/themes/fantasy.css">
+  <link rel="stylesheet" href="css/themes/dark.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐉</text></svg>">
+</head>
+<body data-theme="fantasy">
+  
+  <!-- Background decorations -->
+  <div class="bg-decorations">
+    <div class="bg-pattern"></div>
+    <div class="bg-vignette"></div>
+  </div>
+  
+  <!-- Main Container -->
+  <div class="app-container">
+    
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-section">
+        <h1 class="logo">
+          <span class="logo-icon">🐉</span>
+          <span class="logo-text">MUD<span class="logo-accent">II</span></span>
+        </h1>
+        <span class="tagline">The Land Awaits</span>
+      </div>
+      
+      <div class="header-controls">
+        <button id="theme-toggle" class="icon-btn" title="Toggle Theme">
+          <span class="theme-icon">🌙</span>
+        </button>
+        <button id="buttons-toggle" class="icon-btn" title="Toggle Command Buttons">
+          <span class="toggle-icon">◀</span>
+        </button>
+        <div class="connection-group">
+          <span id="connection-status" class="status-indicator disconnected">Disconnected</span>
+          <button id="connect-btn" class="btn-connect">Connect</button>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Status Bar -->
+    <div id="status-bar" class="status-bar">
+      <div class="stat-group">
+        <div class="stat">
+          <span class="stat-label">STA</span>
+          <span id="stat-sta" class="stat-value">—</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">DEX</span>
+          <span id="stat-dex" class="stat-value">—</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">STR</span>
+          <span id="stat-str" class="stat-value">—</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">MAG</span>
+          <span id="stat-mag" class="stat-value">—</span>
+        </div>
+      </div>
+      <div class="stat-group">
+        <div class="stat stat-score">
+          <span class="stat-label">POINTS</span>
+          <span id="stat-pts" class="stat-value">—</span>
+        </div>
+        <div class="stat stat-weather">
+          <span class="stat-label">☁</span>
+          <span id="stat-weather" class="stat-value">—</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      
+      <!-- Command Buttons Panel -->
+      <aside id="button-panel" class="button-panel">
+        
+        <!-- Navigation -->
+        <section class="button-section">
+          <h3 class="section-title">Navigation</h3>
+          <div class="compass-grid">
+            <div class="compass-row">
+              <button data-cmd="nw" class="cmd-btn compass-btn" title="Northwest">NW</button>
+              <button data-cmd="n" class="cmd-btn compass-btn compass-main" title="North">N</button>
+              <button data-cmd="ne" class="cmd-btn compass-btn" title="Northeast">NE</button>
+            </div>
+            <div class="compass-row">
+              <button data-cmd="w" class="cmd-btn compass-btn compass-main" title="West">W</button>
+              <button data-cmd="look" class="cmd-btn compass-btn compass-center" title="Look">👁</button>
+              <button data-cmd="e" class="cmd-btn compass-btn compass-main" title="East">E</button>
+            </div>
+            <div class="compass-row">
+              <button data-cmd="sw" class="cmd-btn compass-btn" title="Southwest">SW</button>
+              <button data-cmd="s" class="cmd-btn compass-btn compass-main" title="South">S</button>
+              <button data-cmd="se" class="cmd-btn compass-btn" title="Southeast">SE</button>
+            </div>
+          </div>
+          
+          <div class="direction-extras">
+            <button data-cmd="up" class="cmd-btn dir-btn" title="Up">⬆ Up</button>
+            <button data-cmd="down" class="cmd-btn dir-btn" title="Down">⬇ Down</button>
+            <button data-cmd="in" class="cmd-btn dir-btn" title="In">↩ In</button>
+            <button data-cmd="out" class="cmd-btn dir-btn" title="Out">↪ Out</button>
+            <button data-cmd="sw" class="cmd-btn dir-btn swamp-btn" title="Swamp / Swampward">🐊 Swamp</button>
+          </div>
+        </section>
+        
+        <!-- Common Actions -->
+        <section class="button-section">
+          <h3 class="section-title">Actions</h3>
+          <div class="action-grid">
+            <button data-cmd="look" class="cmd-btn action-btn" title="Look around">👁 Look</button>
+            <button data-cmd="inventory" class="cmd-btn action-btn" title="Check inventory">🎒 Inv</button>
+            <button data-cmd="score" class="cmd-btn action-btn" title="View score">📊 Score</button>
+            <button data-cmd="help" class="cmd-btn action-btn" title="Get help">❓ Help</button>
+            <button data-cmd="who" class="cmd-btn action-btn" title="Who's online">👥 Who</button>
+            <button data-cmd="quit" class="cmd-btn action-btn action-quit" title="Quit game">🚪 Quit</button>
+          </div>
+        </section>
+        
+        <!-- Combat -->
+        <section class="button-section">
+          <h3 class="section-title">Combat</h3>
+          <div class="action-grid">
+            <button data-cmd="kill " class="cmd-btn combat-btn" title="Attack (type target)">⚔️ Kill</button>
+            <button data-cmd="flee" class="cmd-btn combat-btn combat-flee" title="Run away!">🏃 Flee</button>
+          </div>
+        </section>
+        
+      </aside>
+      
+      <!-- Terminal Area -->
+      <div class="terminal-wrapper">
+        <div class="terminal-frame">
+          <div id="terminal" class="terminal-container"></div>
+        </div>
+        
+        <!-- Input Area -->
+        <div class="input-area">
+          <div class="input-wrapper">
+            <span class="input-prompt">▶</span>
+            <input 
+              type="text" 
+              id="command-input" 
+              class="command-input" 
+              placeholder="Enter command..." 
+              autocomplete="off"
+              autocapitalize="none"
+              spellcheck="false"
+            >
+            <button id="send-btn" class="send-btn" title="Send Command">
+              <span>Send</span>
+            </button>
+          </div>
+          <div class="input-hints">
+            <span class="hint">↑↓ History</span>
+            <span class="hint">Enter to send</span>
+          </div>
+        </div>
+      </div>
+      
+    </main>
+    
+    <!-- Footer -->
+    <footer class="app-footer">
+      <span>MUD3 Client</span>
+      <span class="separator">•</span>
+      <a href="http://www.mudii.co.uk/" target="_blank" rel="noopener">mudii.co.uk</a>
+      <span class="separator">•</span>
+      <span class="footer-note">The world's first MUD, running since 1985</span>
+    </footer>
+    
+  </div>
+  
+  <!-- Configuration -->
+  <script>
+    // Configure WebSocket URL (change for production)
+    window.MUD3_CONFIG = {
+      wsUrl: 'ws://localhost:8080'
+    };
+  </script>
+  
+  <!-- Scripts -->
+  <script src="js/ansi.js"></script>
+  <script src="js/terminal.js"></script>
+  <script src="js/mud2.js"></script>
+  <script src="js/app.js"></script>
+  
+</body>
+</html>
