@@ -70,6 +70,32 @@ class MUD2Protocol {
     while (i < data.length) {
       const byte = data[i];
       
+      // Check for FES (Front End Score) sequence: C12 C08 C01 0xFF (167 163 156 255)
+      // This is followed by stats data until newline
+      if (byte === 167 && i + 3 < data.length && 
+          data[i + 1] === 163 && data[i + 2] === 156 && data[i + 3] === 255) {
+        // Skip the header bytes
+        i += 4;
+        
+        // Find the newline to get the FES data
+        let fesData = '';
+        while (i < data.length && data[i] !== 10 && data[i] !== 13) {
+          // Skip any more client codes (high bytes)
+          if (data[i] >= 155 && data[i] <= 255) {
+            i++;
+            continue;
+          }
+          fesData += String.fromCharCode(data[i]);
+          i++;
+        }
+        
+        // Parse the FES line
+        if (fesData.trim()) {
+          this.parseFESLine(fesData);
+        }
+        continue;
+      }
+      
       // Check for MUD2 client codes (0x9B - 0xFE range)
       if (byte >= 155 && byte <= 254) {
         // Try to parse client code sequence
@@ -241,8 +267,9 @@ class MUD2Protocol {
   }
   
   /**
-   * Parse FES (Front End Score) line
-   * Format: Sta cur max Str cur max Dex cur max Mag cur max Score Blind Deaf Crip Dumb Reset Weather
+   * Parse FES (Front End Score) line - matches Clio's parsing
+   * Format: sta msta str mstr dex mdex mag mmag score blind deaf crip dumb reset weather
+   * Example: "100 100 100 100 100 100 50 50 12345 N N N N 30 S"
    */
   parseFES(text) {
     const parts = text.trim().split(/\s+/);
@@ -267,6 +294,57 @@ class MUD2Protocol {
       if (this.onStatsUpdate) {
         this.onStatsUpdate(this.stats);
       }
+    }
+  }
+  
+  /**
+   * Parse FES line from binary client code sequence (like Clio)
+   * Called when we detect C12 C08 C01 0xFF sequence
+   */
+  parseFESLine(text) {
+    // Extract just the numbers from the FES data
+    // The format is: sta msta str mstr dex mdex mag mmag score blind deaf crip dumb reset weather
+    const numbers = text.match(/\d+/g);
+    
+    if (numbers && numbers.length >= 9) {
+      this.stats.stamina = parseInt(numbers[0]) || 0;
+      this.stats.maxStamina = parseInt(numbers[1]) || 0;
+      this.stats.strength = parseInt(numbers[2]) || 0;
+      this.stats.maxStrength = parseInt(numbers[3]) || 0;
+      this.stats.dexterity = parseInt(numbers[4]) || 0;
+      this.stats.maxDexterity = parseInt(numbers[5]) || 0;
+      this.stats.magic = parseInt(numbers[6]) || 0;
+      this.stats.maxMagic = parseInt(numbers[7]) || 0;
+      this.stats.score = parseInt(numbers[8]) || 0;
+      
+      // Check for Y/N flags after the numbers
+      const flags = text.match(/[YN]/g);
+      if (flags) {
+        if (flags.length > 0) this.stats.blind = flags[0] === 'Y';
+        if (flags.length > 1) this.stats.deaf = flags[1] === 'Y';
+        if (flags.length > 2) this.stats.crippled = flags[2] === 'Y';
+        if (flags.length > 3) this.stats.dumb = flags[3] === 'Y';
+      }
+      
+      // Weather is usually a single letter at the end (S=sunny, R=rain, etc)
+      const weatherMatch = text.match(/[SRCFTB]\s*$/i);
+      if (weatherMatch) {
+        const w = weatherMatch[0].trim().toUpperCase();
+        const weatherMap = {
+          'S': 'sunny', 'R': 'raining', 'C': 'cloudy', 
+          'F': 'foggy', 'T': 'stormy', 'B': 'snowing'
+        };
+        this.stats.weather = weatherMap[w] || w;
+      }
+      
+      // Enter game mode when we receive FES
+      this.setMode('GAME');
+      
+      if (this.onStatsUpdate) {
+        this.onStatsUpdate(this.stats);
+      }
+      
+      console.log('FES parsed:', this.stats);
     }
   }
   
